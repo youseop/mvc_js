@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css" />
   </head>
   <body>
-    <!-- <img src="./nyan-cat.gif" alt="cat" /> -->
+    <div id="root">
+      <div data-component="app"></div>
+    </div>
+    <script type="module" src="js/index.js"></script>
+  </body>
+
+  <template id="todo-app">
     <section class="todoapp">
       <header class="header">
         <h1>todos</h1>
@@ -38,9 +44,7 @@
         <button class="clear-completed">Clear completed</button>
       </footer>
     </section>
-    <script type="module" src="js/controller.js"></script>
-  </body>
-
+  </template>
   <template id="todo-item">
     <li>
       <div class="view">
