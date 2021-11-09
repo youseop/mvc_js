@@ -29,6 +29,12 @@ const events = {
     });
     render();
   },
+  toggleItemCompletion: (index) => {
+    state.todos[index].completed = !state.todos[index].completed;
+    const element = document.getElementById(`${index}`);
+    element.classList.remove("completed");
+    render();
+  },
 };
 
 //모든 dom조작이나 애니메이션은 이 DOM API를 기반으로 해야 한다.

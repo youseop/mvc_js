@@ -7,7 +7,7 @@ const createNewTodoNode = () => {
   return template.content.firstElementChild.cloneNode(true);
 };
 
-const getTodoElement = (todo, index, events) => {
+const getTodoElement = (todo, index) => {
   const { text, completed } = todo;
 
   const element = createNewTodoNode();
@@ -21,13 +21,15 @@ const getTodoElement = (todo, index, events) => {
   }
 
   element.querySelector("button.destroy").dataset.index = index;
+  element.querySelector("input.toggle").dataset.index = index;
+  element.id = index;
 
   return element;
 };
 
 export default (targetElement, state, events) => {
   const { todos } = state;
-  const { deleteItem } = events;
+  const { deleteItem, toggleItemCompletion } = events;
   const newTodoList = targetElement.cloneNode(true);
   newTodoList.innerHTML = "";
 
@@ -41,6 +43,9 @@ export default (targetElement, state, events) => {
     if (e.target.matches("button.destroy")) {
       const targetIndex = e.target.dataset.index;
       deleteItem(targetIndex);
+    } else if (e.target.matches("input.toggle")) {
+      const targetIndex = e.target.dataset.index;
+      toggleItemCompletion(targetIndex);
     }
   });
 
