@@ -20,13 +20,14 @@ const getTodoElement = (todo, index, events) => {
     element.querySelector("input.toggle").checked = true;
   }
 
-  const handler = () => events.deleteItem(index);
-  element.querySelector("button.destroy").addEventListener("click", handler);
+  element.querySelector("button.destroy").dataset.index = index;
 
   return element;
 };
 
-export default (targetElement, { todos }, events) => {
+export default (targetElement, state, events) => {
+  const { todos } = state;
+  const { deleteItem } = events;
   const newTodoList = targetElement.cloneNode(true);
   newTodoList.innerHTML = "";
 
@@ -35,5 +36,13 @@ export default (targetElement, { todos }, events) => {
     .forEach((element) => {
       newTodoList.appendChild(element);
     });
+
+  newTodoList.addEventListener("click", (e) => {
+    if (e.target.matches("button.destroy")) {
+      const targetIndex = e.target.dataset.index;
+      deleteItem(targetIndex);
+    }
+  });
+
   return newTodoList;
 };
